@@ -9,7 +9,7 @@
 #![feature(old_path)]
 #![feature(fs)]
 #![feature(std_misc)]
-#![feature(convert)] 
+#![feature(convert)]
 
 extern crate rustc_serialize;
 extern crate uuid;
@@ -69,6 +69,7 @@ const HEARTBEAT_MAX: i64 = 300;
 /// use raft::RaftNode;
 /// use std::old_io::net::ip::SocketAddr;
 /// use std::old_io::net::ip::IpAddr::Ipv4Addr;
+/// use std::path::PathBuf;
 /// // Generally, your nodes will come from a file, or something.
 /// let nodes = vec![
 ///     (0, SocketAddr { ip: Ipv4Addr(127, 0, 0, 1), port: 11110 }),
@@ -80,7 +81,7 @@ const HEARTBEAT_MAX: i64 = 300;
 /// let (command_sender, result_reciever) = RaftNode::<String>::start(
 ///     0,
 ///     nodes.clone(),
-///     PathBuf::new("/tmp/test0")
+///     PathBuf::from("/tmp/test0")
 /// );
 /// ```
 ///

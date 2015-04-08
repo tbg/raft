@@ -139,7 +139,11 @@ impl<T: Encodable + Decodable + Send + Clone> PersistentState<T> {
     /// Removes all entries from `from` to the last entry, inclusively.
     pub fn purge_from_index(&mut self, from_line: u64) -> io::Result<()> {
         let position = try!(self.move_to(from_line));
-        let last_index = from_line - 1; // We're 1 indexed.
+        let last_index = if from_line == 0 {
+            0
+        } else {
+            from_line - 1 // We're 1 indexed.
+        };
         self.last_index = last_index;
         self.last_term = self.retrieve_entry(last_index).map(|(t, _)| t).unwrap_or(0);
         self.purge_from_bytes(position)
