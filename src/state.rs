@@ -1,5 +1,3 @@
-extern crate "rustc-serialize" as rustc_serialize;
-extern crate uuid;
 
 use uuid::Uuid;
 use rustc_serialize::{json, Encodable, Decodable};
@@ -8,11 +6,11 @@ use state::NodeState::{Leader, Follower, Candidate};
 use state::TransactionState::{Polling, Accepted, Rejected};
 use std::fs::{File, OpenOptions};
 use std::str;
-use std::str::StrExt;
 use std::io;
-use std::io::{Write, ReadExt, Seek};
+use std::io::{Write, Read, Seek};
 use std::marker;
 use std::collections::VecDeque;
+use std::path::PathBuf;
 
 /// Persistent state
 /// **Must be updated to stable storage before RPC response.**
@@ -27,7 +25,7 @@ pub struct PersistentState<T: Encodable + Decodable + Send + Clone> {
 }
 
 impl<T: Encodable + Decodable + Send + Clone> PersistentState<T> {
-    pub fn new(current_term: u64, log_path: Path) -> PersistentState<T> {
+    pub fn new(current_term: u64, log_path: PathBuf) -> PersistentState<T> {
         let mut open_opts = OpenOptions::new();
         open_opts.read(true);
         open_opts.write(true);
@@ -100,7 +98,7 @@ impl<T: Encodable + Decodable + Send + Clone> PersistentState<T> {
             line_length: None,
         })
     }
-    fn decode(bytes: String) -> Result<T, rustc_serialize::json::DecoderError> {
+    fn decode(bytes: String) -> Result<T, json::DecoderError> {
         let based = bytes.from_base64()
             .ok().expect("Decoding error. log likely corrupt.");
         let string = str::from_utf8(based.as_slice())
@@ -114,7 +112,7 @@ impl<T: Encodable + Decodable + Send + Clone> PersistentState<T> {
         let mut lines_read = 0u64;
         self.log.seek(io::SeekFrom::Start(0)).unwrap(); // Take the start.
         // Go until we've reached `from` new lines.
-        let _ = self.log.by_ref().chars().skip_while(|opt| {
+        let _ = Read::by_ref(&mut self.log).chars().skip_while(|opt| {
             match *opt {
                 Ok(val) => {
                     if val == '\n' {
@@ -149,11 +147,11 @@ impl<T: Encodable + Decodable + Send + Clone> PersistentState<T> {
     pub fn retrieve_entries(&mut self, start: u64, end: u64) -> io::Result<Vec<(u64, T)>> {
         let _ = self.move_to(start);
         let mut out = vec![];
-        let mut read_in = self.log.by_ref()
+        let mut read_in = Read::by_ref(&mut self.log)
             .chars()
             .take_while(|val| val.is_ok())
             .filter_map(|val| val.ok()); // We don't really care about issues here.
-        for _ in range(start, end +1) {
+        for _ in start .. (end+1) {
             let chars = read_in.by_ref()
                 .take_while(|&val| val != '\n')
                 .collect::<String>();
@@ -165,7 +163,7 @@ impl<T: Encodable + Decodable + Send + Clone> PersistentState<T> {
     }
     pub fn retrieve_entry(&mut self, index: u64) -> io::Result<(u64, T)> {
         let _ = self.move_to(index);
-        let chars = self.log.by_ref()
+        let chars = Read::by_ref(&mut self.log)
             .chars()
             .take_while(|val| val.is_ok())
             .filter_map(|val| val.ok()) // We don't really care about issues here.
@@ -181,14 +179,14 @@ fn parse_entry<T: Encodable + Decodable + Send + Clone>(val: String) -> io::Resu
             .and_then(|v| v.parse::<u64>().ok());
         match chunk {
             Some(v) => v,
-            None => return Err(io::Error::new(io::ErrorKind::InvalidInput, "Could not parse term.", None)),
+            None => return Err(io::Error::new(io::ErrorKind::InvalidInput, "Could not parse term.")),
         }
     };
     let encoded = {
         let chunk = splits.next();
         match chunk {
             Some(v) => v,
-            None => return Err(io::Error::new(io::ErrorKind::InvalidInput, "Could not parse encoded data.", None)),
+            None => return Err(io::Error::new(io::ErrorKind::InvalidInput, "Could not parse encoded data.")),
         }
     };
     let decoded: T = PersistentState::decode(encoded.to_string())
@@ -197,7 +195,7 @@ fn parse_entry<T: Encodable + Decodable + Send + Clone>(val: String) -> io::Resu
 }
 
 /// Volatile state
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct VolatileState {
     pub commit_index: u64,
     pub last_applied: u64
@@ -244,83 +242,83 @@ pub enum TransactionState {
 #[test]
 fn test_persistent_state() {
     use std::fs;
-    let path = Path::new("/tmp/test_path");
+    let path = PathBuf::from("/tmp/test_path");
     fs::remove_file(&path.clone()).ok();
     let mut state = PersistentState::new(0, path.clone());
     // Add 1
     assert_eq!(state.append_entries(0, 0, // Zero is the initialization state.
-        vec![(1, "One".to_string())]),
-        Ok(()));
+        vec![(1, "One".to_string())]).unwrap(),
+        ());
     // Check 1
-    assert_eq!(state.retrieve_entry(1),
-        Ok((1, "One".to_string())));
+    assert_eq!(state.retrieve_entry(1).unwrap(),
+        (1, "One".to_string()));
     assert_eq!(state.get_last_index(), 1);
     assert_eq!(state.get_last_term(), 1);
     // Do a blank check.
-    assert_eq!(state.append_entries(1,1, vec![]),
-        Ok(()));
+    assert_eq!(state.append_entries(1,1, vec![]).unwrap(),
+        ());
         assert_eq!(state.get_last_index(), 1);
         assert_eq!(state.get_last_term(), 1);
     // Add 2
     assert_eq!(state.append_entries(1, 1,
-        vec![(2, "Two".to_string())]),
-        Ok(()));
+        vec![(2, "Two".to_string())]).unwrap(),
+        ());
     assert_eq!(state.get_last_index(), 2);
     assert_eq!(state.get_last_term(), 2);
     // Check 1, 2
-    assert_eq!(state.retrieve_entries(1, 2),
-        Ok(vec![(1, "One".to_string()),
-                (2, "Two".to_string())
-        ]));
+    assert_eq!(state.retrieve_entries(1, 2).unwrap(),
+        vec![(1, "One".to_string()),
+            (2, "Two".to_string())
+        ]);
     // Check 2
-    assert_eq!(state.retrieve_entry(2),
-        Ok((2, "Two".to_string())));
+    assert_eq!(state.retrieve_entry(2).unwrap(),
+        (2, "Two".to_string()));
     // Add 3, 4
     assert_eq!(state.append_entries(2, 2,
         vec![(3, "Three".to_string()),
-             (4, "Four".to_string())]),
-        Ok(()));
+             (4, "Four".to_string())]).unwrap(),
+        ());
     // Check 3, 4
-    assert_eq!(state.retrieve_entries(3, 4),
-        Ok(vec![(3, "Three".to_string()),
+    assert_eq!(state.retrieve_entries(3, 4).unwrap(),
+        vec![(3, "Three".to_string()),
                 (4, "Four".to_string())
-        ]));
+        ]);
     assert_eq!(state.get_last_index(), 4);
     assert_eq!(state.get_last_term(), 4);
     // Remove 3, 4
-    assert_eq!(state.purge_from_index(3),
-        Ok(()));
+    assert_eq!(state.purge_from_index(3).unwrap(),
+        ());
     assert_eq!(state.get_last_index(), 2);
     assert_eq!(state.get_last_term(), 2);
     // Check 3, 4 are removed, and that code handles lack of entry gracefully.
-    assert_eq!(state.retrieve_entries(0, 4),
-        Ok(vec![(1, "One".to_string()),
-                (2, "Two".to_string())
-        ]));
+    assert_eq!(state.retrieve_entries(0, 4).unwrap(),
+        vec![(1, "One".to_string()),
+            (2, "Two".to_string())
+        ]);
     // Add 3, 4, 5
     assert_eq!(state.append_entries(2, 2,
         vec![(3, "Three".to_string()),
              (4, "Four".to_string()),
-             (5, "Five".to_string())]),
-        Ok(()));
+             (5, "Five".to_string())]).unwrap(),
+        ());
     assert_eq!(state.get_last_index(), 5);
     assert_eq!(state.get_last_term(), 5);
     // Add 3, 4 again. (5 should be purged)
     assert_eq!(state.append_entries(2, 2,
         vec![(3, "Three".to_string()),
-             (4, "Four".to_string())]),
-        Ok(()));
-    assert_eq!(state.retrieve_entries(0, 4),
-        Ok(vec![(1, "One".to_string()),
+             (4, "Four".to_string())]).unwrap(),
+        ());
+    assert_eq!(state.retrieve_entries(0, 4).unwrap(),
+        vec![(1, "One".to_string()),
                 (2, "Two".to_string()),
                 (3, "Three".to_string()),
                 (4, "Four".to_string()),
-        ]));
+        ]);
     assert_eq!(state.get_last_index(), 4);
     assert_eq!(state.get_last_term(), 4);
     // Do a blank check.
-    assert_eq!(state.append_entries(4,4, vec![]),
-        Ok(()));
+    assert_eq!(state.append_entries(4,4, vec![]).unwrap(),
+        ());
     assert_eq!(state.get_last_index(), 4);
     assert_eq!(state.get_last_term(), 4);
     fs::remove_file(&path.clone()).ok();

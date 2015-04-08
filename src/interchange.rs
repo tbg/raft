@@ -1,7 +1,7 @@
 /// This module exposes a variety of data-interchange formats used by the library. In general,
 /// a consumer of the library won't need to utilize any of these.
 
-extern crate "rustc-serialize" as rustc_serialize;
+extern crate rustc_serialize;
 extern crate uuid;
 
 use uuid::Uuid;

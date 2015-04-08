@@ -3,7 +3,7 @@
 #![feature(fs)]
 #![feature(std_misc)]
 
-extern crate "rustc-serialize" as rustc_serialize;
+extern crate rustc_serialize;
 extern crate raft;
 extern crate env_logger;
 extern crate log;
@@ -11,6 +11,7 @@ extern crate log;
 use raft::interchange::{ClientRequest, AppendRequest, IndexRange};
 use raft::RaftNode;
 
+use std::path::PathBuf;
 use std::old_io::timer::Timer;
 use std::time::Duration;
 use std::old_io::net::ip::SocketAddr;
@@ -29,9 +30,9 @@ fn basic_test() {
     // Start the logger.
     env_logger::init().unwrap();
 
-    fs::remove_file(&Path::new("/tmp/test0")).ok();
-    fs::remove_file(&Path::new("/tmp/test1")).ok();
-    fs::remove_file(&Path::new("/tmp/test2")).ok();
+    fs::remove_file(&PathBuf::from("/tmp/test0")).ok();
+    fs::remove_file(&PathBuf::from("/tmp/test1")).ok();
+    fs::remove_file(&PathBuf::from("/tmp/test2")).ok();
     let nodes = vec![
         (0, SocketAddr { ip: Ipv4Addr(127, 0, 0, 1), port: 11110 }),
         (1, SocketAddr { ip: Ipv4Addr(127, 0, 0, 1), port: 11111 }),
@@ -42,17 +43,17 @@ fn basic_test() {
     let (log_0_sender, log_0_reciever) = RaftNode::<String>::start(
         0,
         nodes.clone(),
-        Path::new("/tmp/test0")
+        PathBuf::from("/tmp/test0")
     );
     let (log_1_sender, log_1_reciever) = RaftNode::<String>::start(
         1,
         nodes.clone(),
-        Path::new("/tmp/test1")
+        PathBuf::from("/tmp/test1")
     );
     let (log_2_sender, log_2_reciever) = RaftNode::<String>::start(
         2,
         nodes.clone(),
-        Path::new("/tmp/test2")
+        PathBuf::from("/tmp/test2")
     );
 
 

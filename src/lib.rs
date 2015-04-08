@@ -9,8 +9,9 @@
 #![feature(old_path)]
 #![feature(fs)]
 #![feature(std_misc)]
+#![feature(convert)] 
 
-extern crate "rustc-serialize" as rustc_serialize;
+extern crate rustc_serialize;
 extern crate uuid;
 extern crate rand;
 #[macro_use] extern crate log;
@@ -23,6 +24,7 @@ use std::old_io::timer::Timer;
 use std::time::Duration;
 use std::old_io::IoError;
 use std::io;
+use std::path::PathBuf;
 use std::thread;
 use std::num::Float;
 use std::sync::mpsc::{channel, Sender, Receiver};
@@ -78,7 +80,7 @@ const HEARTBEAT_MAX: i64 = 300;
 /// let (command_sender, result_reciever) = RaftNode::<String>::start(
 ///     0,
 ///     nodes.clone(),
-///     Path::new("/tmp/test0")
+///     PathBuf::new("/tmp/test0")
 /// );
 /// ```
 ///
@@ -112,7 +114,7 @@ impl<T: Encodable + Decodable + Debug + Send + 'static + Clone> RaftNode<T> {
     /// Creates a new RaftNode with the neighbors specified. `id` should be a valid index into
     /// `nodes`. The idea is that you can use the same `nodes` on all of the clients and only vary
     /// `id`.
-    pub fn start (id: u64, nodes: Vec<(u64, SocketAddr)>, log_path: Path) -> (Sender<ClientRequest<T>>, Receiver<io::Result<Vec<(u64, T)>>>) {
+    pub fn start (id: u64, nodes: Vec<(u64, SocketAddr)>, log_path: PathBuf) -> (Sender<ClientRequest<T>>, Receiver<io::Result<Vec<(u64, T)>>>) {
         // TODO: Check index.
         let size = nodes.len();
         // Build the Hashmap lookups. We don't have a bimap :(
@@ -288,7 +290,7 @@ impl<T: Encodable + Decodable + Debug + Send + 'static + Clone> RaftNode<T> {
                 // Don't request of self.
                 Transaction { uuid: uuid, state: TransactionState::Accepted }
             } else {
-                let addr = self.id_to_addr[id as u64];
+                let addr = self.id_to_addr[&(id as u64)];
                 self.send(addr, request).unwrap();
                 Transaction { uuid: uuid, state: TransactionState::Polling }
             }
@@ -624,14 +626,14 @@ impl<T: Encodable + Decodable + Debug + Send + 'static + Clone> RaftNode<T> {
                 };
                 if found == true {
                     info!("ID {}:F: FROM {} MATCHED: Rejected by leader.", self.own_id, source_id);
-                    self.res_send.send(Err(io::Error::new(io::ErrorKind::Other, "Request was rejected by leader.", None))).unwrap();
+                    self.res_send.send(Err(io::Error::new(io::ErrorKind::Other, "Request was rejected by leader."))).unwrap();
                 }
             },
             Candidate(_) => {
                 // The vote has failed. This means there is most likely an existing leader.
                 // Check the UUID and make sure it's fresh.
                 if let Candidate(ref mut transactions) = self.state {
-                    let ref mut transaction =  transactions.index_mut(&(source_id as usize));
+                    let ref mut transaction =  transactions.index_mut(source_id as usize);
                     if transaction.uuid == response.uuid {
                         transaction.state = TransactionState::Rejected;
                     }
@@ -679,12 +681,12 @@ impl<T: Encodable + Decodable + Debug + Send + 'static + Clone> RaftNode<T> {
                         if let Follower(ref mut queue) = self.state {
                             queue.push_back(Transaction { uuid: uuid, state: TransactionState::Polling });
                         } else { unreachable!(); }
-                        let destination = self.id_to_addr[id];
+                        let destination = self.id_to_addr[&id];
                         self.send(destination, rpc)
                             // TODO: Update to be io::Result
                             .map_err(|_| {
                                 info!("ID {}: RESPONDS ERROR", self.own_id);
-                                io::Error::new(io::ErrorKind::Other, "TODO", None)
+                                io::Error::new(io::ErrorKind::Other, "TODO")
                             })
                     },
                     None     => {
