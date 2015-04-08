@@ -40,7 +40,9 @@ My deliverables will be a functioning MIT licensed library with simple bindings,
 You will need the [Rust](http://rust-lang.org/) compiler:
 
 ```bash
-curl -L https://static.rust-lang.org/rustup.sh | sudo sh
+curl -L https://static.rust-lang.org/rustup.sh > rustup
+chmod +x rustup
+sudo rustup --channel=beta
 ```
 
 This should install `cargo` and `rustc`. Clone the repository and build it:
@@ -48,6 +50,7 @@ This should install `cargo` and `rustc`. Clone the repository and build it:
 ```bash
 git clone git@github.com:Hoverbear/raft.git && \
 cd raft && \
+git checkout first-prototype && \
 cargo build
 ```
 
