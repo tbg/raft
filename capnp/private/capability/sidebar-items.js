@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PipelineOp",""]],"fn":[["internal_get_typed_context",""]],"struct":[["Client",""]],"trait":[["CallContextHook",""],["ClientHook",""],["PipelineHook",""],["RequestHook",""],["ResponseHook",""],["ServerHook",""]]});

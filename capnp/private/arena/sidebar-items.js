@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ArenaPtr",""],["FirstSegment",""]],"struct":[["BuilderArena",""],["ReadLimiter",""],["ReaderArena",""],["SegmentBuilder",""],["SegmentReader",""]],"type":[["SegmentId",""]]});

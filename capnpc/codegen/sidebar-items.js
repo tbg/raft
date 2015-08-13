@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["main","Generate Rust code according to a `schema_capnp::code_generator_request` read from `inp`."]]});

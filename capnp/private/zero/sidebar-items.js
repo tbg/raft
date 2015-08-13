@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Zero","Since ::std::num::Zero isn't stable, we have our own version."]]});

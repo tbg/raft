@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Which",""]],"mod":[["implicit_method_parameter",""],["parameter",""],["unconstrained",""]],"struct":[["Builder",""],["Pipeline",""],["Reader",""]],"type":[["WhichBuilder",""],["WhichReader",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["compute_serialized_size_in_words",""],["read_message","Reads a serialized message from a stream with the provided options."],["write_message","Writes the provided message to `write`."]],"struct":[["OwnedSpaceMessageReader",""]]});

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Builder` struct in crate `capnpc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Builder">
+
+    <title>capnpc::schema_capnp::type_::any_pointer::Builder - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../index.html'>capnpc</a>::<wbr><a href='../../index.html'>schema_capnp</a>::<wbr><a href='../index.html'>type_</a>::<wbr><a href='index.html'>any_pointer</a></p><script>window.sidebarCurrent = {name: 'Builder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../../index.html'>capnpc</a>::<wbr><a href='../../index.html'>schema_capnp</a>::<wbr><a href='../index.html'>type_</a>::<wbr><a href='index.html'>any_pointer</a>::<wbr><a class='struct' href=''>Builder</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-13713' class='srclink' href='../../../../src/capnpc/schema_capnp.rs.html#3595' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Builder&lt;'a&gt; {
+    // some fields omitted
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='struct' href='../../../../capnpc/schema_capnp/type_/any_pointer/struct.Builder.html' title='capnpc::schema_capnp::type_::any_pointer::Builder'>Builder</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.as_reader' class='method'><code>fn <a href='#method.as_reader' class='fnname'>as_reader</a>(self) -&gt; <a class='struct' href='../../../../capnpc/schema_capnp/type_/any_pointer/struct.Reader.html' title='capnpc::schema_capnp::type_::any_pointer::Reader'>Reader</a>&lt;'a&gt;</code></h4>
+<h4 id='method.borrow' class='method'><code>fn <a href='#method.borrow' class='fnname'>borrow</a>&lt;'b&gt;(&amp;'b mut self) -&gt; <a class='struct' href='../../../../capnpc/schema_capnp/type_/any_pointer/struct.Builder.html' title='capnpc::schema_capnp::type_::any_pointer::Builder'>Builder</a>&lt;'b&gt;</code></h4>
+<h4 id='method.total_size' class='method'><code>fn <a href='#method.total_size' class='fnname'>total_size</a>(&amp;self) -&gt; <a class='type' href='../../../../capnp/type.Result.html' title='capnp::Result'>Result</a>&lt;<a class='struct' href='../../../../capnp/struct.MessageSize.html' title='capnp::MessageSize'>MessageSize</a>&gt;</code></h4>
+<h4 id='method.init_unconstrained' class='method'><code>fn <a href='#method.init_unconstrained' class='fnname'>init_unconstrained</a>(self) -&gt; <a class='struct' href='../../../../capnpc/schema_capnp/type_/any_pointer/unconstrained/struct.Builder.html' title='capnpc::schema_capnp::type_::any_pointer::unconstrained::Builder'>Builder</a>&lt;'a&gt;</code></h4>
+<h4 id='method.init_parameter' class='method'><code>fn <a href='#method.init_parameter' class='fnname'>init_parameter</a>(self) -&gt; <a class='struct' href='../../../../capnpc/schema_capnp/type_/any_pointer/parameter/struct.Builder.html' title='capnpc::schema_capnp::type_::any_pointer::parameter::Builder'>Builder</a>&lt;'a&gt;</code></h4>
+<h4 id='method.init_implicit_method_parameter' class='method'><code>fn <a href='#method.init_implicit_method_parameter' class='fnname'>init_implicit_method_parameter</a>(self) -&gt; <a class='struct' href='../../../../capnpc/schema_capnp/type_/any_pointer/implicit_method_parameter/struct.Builder.html' title='capnpc::schema_capnp::type_::any_pointer::implicit_method_parameter::Builder'>Builder</a>&lt;'a&gt;</code></h4>
+<h4 id='method.which' class='method'><code>fn <a href='#method.which' class='fnname'>which</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='type' href='../../../../capnpc/schema_capnp/type_/any_pointer/type.WhichBuilder.html' title='capnpc::schema_capnp::type_::any_pointer::WhichBuilder'>WhichBuilder</a>&lt;'a&gt;, <a class='struct' href='../../../../capnp/struct.NotInSchema.html' title='capnp::NotInSchema'>NotInSchema</a>&gt;</code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='trait' href='../../../../capnp/traits/trait.HasTypeId.html' title='capnp::traits::HasTypeId'>HasTypeId</a> for <a class='struct' href='../../../../capnpc/schema_capnp/type_/any_pointer/struct.Builder.html' title='capnpc::schema_capnp::type_::any_pointer::Builder'>Builder</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.type_id' class='method'><code>fn <a href='../../../../capnp/traits/trait.HasTypeId.html#method.type_id' class='fnname'>type_id</a>() -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code></h4>
+</div><h3 class='impl'><code>impl&lt;'a&gt; <a class='trait' href='../../../../capnp/traits/trait.FromStructBuilder.html' title='capnp::traits::FromStructBuilder'>FromStructBuilder</a>&lt;'a&gt; for <a class='struct' href='../../../../capnpc/schema_capnp/type_/any_pointer/struct.Builder.html' title='capnpc::schema_capnp::type_::any_pointer::Builder'>Builder</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='../../../../capnp/traits/trait.FromStructBuilder.html#method.new' class='fnname'>new</a>(builder: <a class='struct' href='../../../../capnp/private/layout/struct.StructBuilder.html' title='capnp::private::layout::StructBuilder'>StructBuilder</a>&lt;'a&gt;) -&gt; <a class='struct' href='../../../../capnpc/schema_capnp/type_/any_pointer/struct.Builder.html' title='capnpc::schema_capnp::type_::any_pointer::Builder'>Builder</a>&lt;'a&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;'a, 'b&gt; <a class='trait' href='../../../../capnp/traits/trait.CastableTo.html' title='capnp::traits::CastableTo'>CastableTo</a>&lt;<a class='struct' href='../../../../capnpc/schema_capnp/type_/any_pointer/struct.Builder.html' title='capnpc::schema_capnp::type_::any_pointer::Builder'>Builder</a>&lt;'a&gt;&gt; for <a class='struct' href='../../../../capnpc/schema_capnp/type_/any_pointer/struct.Builder.html' title='capnpc::schema_capnp::type_::any_pointer::Builder'>Builder</a>&lt;'b&gt;</code></h3><div class='impl-items'><h4 id='method.cast' class='method'><code>fn <a href='../../../../capnp/traits/trait.CastableTo.html#method.cast' class='fnname'>cast</a>(self) -&gt; <a class='struct' href='../../../../capnpc/schema_capnp/type_/any_pointer/struct.Builder.html' title='capnpc::schema_capnp::type_::any_pointer::Builder'>Builder</a>&lt;'a&gt;</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div>
+            <div class="shortcuts">
+                <h1>Keyboard Shortcuts</h1>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h1>Search Tricks</h1>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "capnpc";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    
+    <script async src="../../../../search-index.js"></script>
+</body>
+</html>

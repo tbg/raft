@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ListIter",""]],"trait":[["CastableTo",""],["FromPointerBuilder",""],["FromPointerBuilderRefDefault",""],["FromPointerReader",""],["FromPointerReaderRefDefault",""],["FromStructBuilder",""],["FromStructReader",""],["FromU16",""],["HasStructSize",""],["HasTypeId",""],["IndexMove",""],["SetPointerBuilder",""],["ToU16",""]]});

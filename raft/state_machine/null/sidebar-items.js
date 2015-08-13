@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["NullStateMachine","A state machine with no states."]]});

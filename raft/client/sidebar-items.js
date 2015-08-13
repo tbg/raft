@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Client","The representation of a Client connection to the cluster."]]});

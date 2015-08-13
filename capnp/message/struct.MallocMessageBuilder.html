@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `MallocMessageBuilder` struct in crate `capnp`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, MallocMessageBuilder">
+
+    <title>capnp::message::MallocMessageBuilder - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>capnp</a>::<wbr><a href='index.html'>message</a></p><script>window.sidebarCurrent = {name: 'MallocMessageBuilder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>capnp</a>::<wbr><a href='index.html'>message</a>::<wbr><a class='struct' href=''>MallocMessageBuilder</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-2987' class='srclink' href='../../src/capnp/message.rs.html#229-231' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct MallocMessageBuilder {
+    // some fields omitted
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../capnp/message/struct.MallocMessageBuilder.html' title='capnp::message::MallocMessageBuilder'>MallocMessageBuilder</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(options: <a class='struct' href='../../capnp/message/struct.BuilderOptions.html' title='capnp::message::BuilderOptions'>BuilderOptions</a>) -&gt; <a class='struct' href='../../capnp/message/struct.MallocMessageBuilder.html' title='capnp::message::MallocMessageBuilder'>MallocMessageBuilder</a></code></h4>
+<h4 id='method.new_default' class='method'><code>fn <a href='#method.new_default' class='fnname'>new_default</a>() -&gt; <a class='struct' href='../../capnp/message/struct.MallocMessageBuilder.html' title='capnp::message::MallocMessageBuilder'>MallocMessageBuilder</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../capnp/message/struct.MallocMessageBuilder.html' title='capnp::message::MallocMessageBuilder'>MallocMessageBuilder</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> for <a class='struct' href='../../capnp/message/struct.MallocMessageBuilder.html' title='capnp::message::MallocMessageBuilder'>MallocMessageBuilder</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='../../capnp/message/trait.MessageBuilder.html' title='capnp::message::MessageBuilder'>MessageBuilder</a> for <a class='struct' href='../../capnp/message/struct.MallocMessageBuilder.html' title='capnp::message::MallocMessageBuilder'>MallocMessageBuilder</a></code></h3><div class='impl-items'><h4 id='method.arena_mut' class='method'><code>fn <a href='../../capnp/message/trait.MessageBuilder.html#method.arena_mut' class='fnname'>arena_mut</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../../capnp/private/arena/struct.BuilderArena.html' title='capnp::private::arena::BuilderArena'>BuilderArena</a></code></h4>
+<h4 id='method.arena' class='method'><code>fn <a href='../../capnp/message/trait.MessageBuilder.html#method.arena' class='fnname'>arena</a>(&amp;self) -&gt; &amp;<a class='struct' href='../../capnp/private/arena/struct.BuilderArena.html' title='capnp::private::arena::BuilderArena'>BuilderArena</a></code></h4>
+<h4 id='method.get_root_internal' class='method'><code>fn <a href='../../capnp/message/trait.MessageBuilder.html#method.get_root_internal' class='fnname'>get_root_internal</a>&lt;'a&gt;(&amp;mut self) -&gt; <a class='struct' href='../../capnp/any_pointer/struct.Builder.html' title='capnp::any_pointer::Builder'>Builder</a>&lt;'a&gt;</code></h4>
+<h4 id='method.init_root' class='method'><code>fn <a href='../../capnp/message/trait.MessageBuilder.html#method.init_root' class='fnname'>init_root</a>&lt;'a, T: <a class='trait' href='../../capnp/traits/trait.FromPointerBuilder.html' title='capnp::traits::FromPointerBuilder'>FromPointerBuilder</a>&lt;'a&gt;&gt;(&amp;'a mut self) -&gt; T</code></h4>
+<h4 id='method.get_root' class='method'><code>fn <a href='../../capnp/message/trait.MessageBuilder.html#method.get_root' class='fnname'>get_root</a>&lt;'a, T: <a class='trait' href='../../capnp/traits/trait.FromPointerBuilder.html' title='capnp::traits::FromPointerBuilder'>FromPointerBuilder</a>&lt;'a&gt;&gt;(&amp;'a mut self) -&gt; <a class='type' href='../../capnp/type.Result.html' title='capnp::Result'>Result</a>&lt;T&gt;</code></h4>
+<h4 id='method.set_root' class='method'><code>fn <a href='../../capnp/message/trait.MessageBuilder.html#method.set_root' class='fnname'>set_root</a>&lt;To, From: <a class='trait' href='../../capnp/traits/trait.SetPointerBuilder.html' title='capnp::traits::SetPointerBuilder'>SetPointerBuilder</a>&lt;To&gt;&gt;(&amp;mut self, value: From) -&gt; <a class='type' href='../../capnp/type.Result.html' title='capnp::Result'>Result</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.get_segments_for_output' class='method'><code>fn <a href='../../capnp/message/trait.MessageBuilder.html#method.get_segments_for_output' class='fnname'>get_segments_for_output</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='enum' href='../../capnp/enum.OutputSegments.html' title='capnp::OutputSegments'>OutputSegments</a>&lt;'a&gt;</code></h4>
+<h4 id='method.get_cap_table' class='method'><code>fn <a href='../../capnp/message/trait.MessageBuilder.html#method.get_cap_table' class='fnname'>get_cap_table</a>&lt;'a&gt;(&amp;'a self) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../capnp/private/capability/trait.ClientHook.html' title='capnp::private::capability::ClientHook'>ClientHook</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a>&gt;&gt;<a href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div>
+            <div class="shortcuts">
+                <h1>Keyboard Shortcuts</h1>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h1>Search Tricks</h1>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "capnp";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

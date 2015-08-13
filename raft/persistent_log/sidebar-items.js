@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Error","Non-instantiable error type for MemLog"]],"struct":[["MemLog","This is a `Log` implementation that stores entries in a simple in-memory vector. Other data is stored in a struct. It is chiefly intended for testing."]],"trait":[["Log","A store of persistent Raft state."]]});

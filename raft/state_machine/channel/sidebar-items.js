@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ChannelStateMachine","A state machine that simply redirects all commands to a channel."]]});
