@@ -78,7 +78,7 @@ func DescribeMessage(m pb.Message, f EntryFormatter) string {
 	fmt.Fprintf(&buf, "%x->%x %v Term:%d Log:%d/%d", m.From, m.To, m.Type, m.Term, m.LogTerm, m.Index)
 	if m.Reject {
 		fmt.Fprintf(&buf, " Rejected")
-		if m.RejectHint != 0 {
+		if m.RejectHint != 0 || m.Type == pb.MsgAppResp {
 			fmt.Fprintf(&buf, "(Hint:%d)", m.RejectHint)
 		}
 	}
